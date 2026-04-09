@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Stock Predictor</title>
+    <style>
+        body {
+             margin: 0;
+             font-family: 'Poppins', sans-serif;
+             background: linear-gradient(135deg, #0f172a, #1e293b);
+             color: white;
+            }
+        .box {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            width: 350px;
+            margin: auto;
+            backdrop-filter: blur(10px);
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 10px;
+        }
+
+ 
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #ff7eb3;
+            color: white;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Stock Predictor</h1>
+
+    <form action="/predict" method="post">
+        <input type="text" name="stock" placeholder="Enter stock (AAPL)">
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <div class="card">
+        <h2>{{ stock }}</h2>
+        <p>Current Price: {{ last_price }}</p>
+        <p>Predicted: {{ prediction }}</p>
+        <h3>{{ advice }}</h3>
+    </div>
+    {% endif %}
+    {% if prediction %}
+<div class="card">
+    <h2>📈 Stock Chart</h2>
+    <div style="text-align:center;">
+    <img src="{{ url_for('static', filename='chart.png') }}" width="60%">
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
